@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jersey+15&display=swap');
 
-.navbar{
+.navbar {
     background-color: #f8f9fa;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .brand {
@@ -14,3 +16,72 @@
     font-size: 3rem;
 }
 
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu ul button {
+
+    font-family: "Bebas Neue", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    /* Cool blue color */
+    border: none;
+    padding: 10px 20px;
+    /* Adjust padding for better look */
+    border-radius: 5px;
+    /* Rounded corners */
+    color: white;
+    /* White text for contrast */
+
+    /* Adjust font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Smooth hover effect */
+}
+
+.menu ul button:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.menu ul button a {
+    text-decoration: none;
+    /* Removes underline */
+    color: black;
+}
+
+.account-icon-wrapper {
+    background-color: #007bff;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 30px;
+    margin-right: 20px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.account-icon {
+    width: 100%;
+    /* Make the icon fill the available space */
+    height: 100%;
+    object-fit: contain;
+    /* Maintain aspect ratio */
+    display: block;
+    /* Remove any unwanted space */
+}
