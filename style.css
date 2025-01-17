@@ -113,6 +113,33 @@
     margin: 0;
 }
 
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1rem 0.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 1.5rem;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.slider-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.prev-button {
+    left: 1rem;
+}
+
+.next-button {
+    right: 1rem;
+}
+
 .container {
     padding: 20px;
     max-width: 1200px;
