@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jersey+15&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
 .navbar {
     background-color: #f8f9fa;
@@ -144,8 +145,18 @@
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
+    font-family: "Caveat", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
 }
 
+.container h2 {
+    font-family: "Caveat", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
 
 .details-section {
     width: 40%;
