@@ -5,8 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js" defer></script>
+    <script src="./script.js"></script>
     <title>Game Shop</title>
+    <!-- Preload images -->
+    <link rel="preload" href="./assets/images/16.9/cod-warzone.png" as="image">
+    <link rel="preload" href="./assets/images/16.9/blackops6.jpg" as="image">
+    <link rel="preload" href="./assets/images/16.9/fc25.jpeg" as="image">
+    <link rel="preload" href="./assets/images/16.9/fifa23.jpg" as="image">
+    <link rel="preload" href="./assets/images/16.9/gta5.jpg" as="image">
+    <link rel="preload" href="./assets/images/16.9/needforspeed.png" as="image">
+    <link rel="preload" href="./assets/images/16.9/watchdogs.jpg" as="image">
 </head>
 
 <body>
@@ -31,18 +39,20 @@
             </div>
         </header>
         <div class="container">
+            <h2>Hot This Week🔥</h2>
             <div class="content-wrapper">
                 <div class="slider-wrapper">
                     <button class="slider-button prev-button">❮</button>
                     <button class="slider-button next-button">❯</button>
                     <div class="slider">
-                        <img id="slide-1" src="./assets/images/16.9/cod-warzone.png" alt="cod-warzone">
-                        <img id="slide-2" src="./assets/images/16.9/blackops6.jpeg" alt="Black Ops">
-                        <img id="slide-3" src="./assets/images/16.9/fc25.jpeg" alt="FC 25">
-                        <img id="slide-4" src="./assets/images/16.9/fifa23.jpg" alt="FIFA 23">
-                        <img id="slide-5" src="./assets/images/16.9/gta5.jpg" alt="GTA V">
-                        <img id="slide-6" src="./assets/images/16.9/needforspeed.png" alt="Need for Speed">
-                        <img id="slide-7" src="./assets/images/16.9/watchdogs.jpg" alt="Watch Dogs">
+                        <img id="slide-1" src="./assets/images/16.9/cod-warzone.png" alt="cod-warzone" loading="lazy">
+                        <img id="slide-2" src="./assets/images/16.9/blackops6.jpg" alt="Black Ops" loading="lazy">
+                        <img id="slide-3" src="./assets/images/16.9/fc25.jpeg" alt="FC 25" loading="lazy">
+                        <img id="slide-4" src="./assets/images/16.9/fifa23.jpg" alt="FIFA 23" loading="lazy">
+                        <img id="slide-5" src="./assets/images/16.9/gta5.jpg" alt="GTA V" loading="lazy">
+                        <img id="slide-6" src="./assets/images/16.9/needforspeed.png" alt="Need for Speed"
+                            loading="lazy">
+                        <img id="slide-7" src="./assets/images/16.9/watchdogs.jpg" alt="Watch Dogs" loading="lazy">
                     </div>
                     <div class="slider-nav">
                         <a href="#slide-1"></a>

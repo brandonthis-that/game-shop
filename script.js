@@ -107,18 +107,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Event Listeners for butons
+  nextButton.addEventListener("click", () => {
+    currentSlide = (currentSlide + 1) % totalSlides; // Correct increment for next button
+    updateSlide(currentSlide); // Update the slide
+  });
+
   prevButton.addEventListener("click", () => {
-    currentSlide = (currentSlide + 1) % totalSlides;
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
     updateSlide(currentSlide);
   });
 
   //Event Listeners for nav dots
   navDots.forEach((dot, index) => {
-    dot,
-      addEventListener("click", (e) => {
-        e.preventDefault();
-        updateSlide(index);
-      });
+    dot.addEventListener("click", (e) => {
+      e.preventDefault();
+      updateSlide(index);
+    });
   });
 
   // Initialize first slide
