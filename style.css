@@ -1,12 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jersey+15&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .navbar {
-    background-color: #f8f9fa;
+    background-color: #fff3e7;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 5px 20px;
+    /* Reduced vertical padding */
     justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    box-sizing: border-box;
+    height: 50px;
 }
 
 .navbar-right {
@@ -22,7 +36,7 @@
     font-style: normal;
     text-decoration: none;
     color: black;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .search-on-menu {
@@ -30,24 +44,27 @@
     align-items: center;
     margin-left: auto;
     /* Pushes it to the right */
-    margin-right: 20px;
+    margin-right: 10px;
     background-color: #f0f0f0;
-    border-radius: 25px;
-    padding: 8px 15px;
-    width: 40px;
+    border-radius: 20px;
+    padding: 4px 10px;
+    width: 20px;
     /* Starting width */
     transition: width 0.3s ease;
+    height: 28px;
+    /* Reduced height */
+    min-height: 28px
 }
 
 .search-on-menu.expanded {
-    width: 300px;
+    width: 600px;
     /* Width when expanded */
 }
 
 .search-icon {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
     /* Prevents icon from shrinking */
     object-fit: contain;
 }
@@ -56,8 +73,8 @@
     border: none;
     outline: none;
     background: none;
-    padding: 5px 10px;
-    font-size: 16px;
+    padding: 3px 8px;
+    font-size: 14px;
     color: #333;
     width: 0;
     /* Start with 0 width */
@@ -83,7 +100,7 @@
     justify-content: space-between;
 }
 
-.menu ul {
+.navbar-right ul {
     display: flex;
     list-style-type: none;
     margin: 0;
@@ -95,10 +112,10 @@
     font-family: "Bebas Neue", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.2rem;
+    font-size: 1rem;
     background-color: #007bff;
     border: none;
-    padding: 10px 20px;
+    padding: 6px 15px;
     border-radius: 5px;
     color: white;
     cursor: pointer;
@@ -119,15 +136,15 @@
 
 .account-icon-wrapper {
     background-color: #007bff;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    margin-left: 30px;
+    margin-left: 0px;
     margin-right: 20px;
-    padding: 8px;
+    padding: 6px;
     box-sizing: border-box;
 }
 
@@ -283,13 +300,13 @@
 .theme-toggle button {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    padding: 8px;
+    padding: 6px;
     border-radius: 50%;
-    margin-right: 15px;
-    width: 40px;
-    height: 40px;
+    margin-right: 0px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -306,9 +323,11 @@
 
 /* INTRO SECTION */
 .intro {
-    padding: 2rem 5%;
+    padding: 0 5% 2rem 5%;
+    /* Removed top padding */
     max-width: 1400px;
     margin: 0 auto;
+    margin-top: 50px;
 }
 
 .intro-content {

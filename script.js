@@ -205,4 +205,23 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("click", (e) => {
     e.stopPropagation();
   });
+
+  // Navbar scroll functionality
+  const navbar = document.querySelector(".navbar");
+  let lastScroll = 0;
+
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+
+    // Scrolling down
+    if (currentScroll > lastScroll && currentScroll > 50) {
+      navbar.style.transform = "translateY(-100%)";
+    }
+    // Scrolling up
+    else {
+      navbar.style.transform = "translateY(0)";
+    }
+
+    lastScroll = currentScroll;
+  });
 });
