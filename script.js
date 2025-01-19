@@ -1,3 +1,7 @@
+window.onload = function () {
+  window.scrollTo(0, 0);
+};
+
 // Game details data
 const gameDetails = {
   "slide-1": {
