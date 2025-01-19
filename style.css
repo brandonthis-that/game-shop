@@ -225,7 +225,12 @@
 }
 
 .dark-mode .navbar {
-    background-color: #242627;
+    background-color: #181a1b;
+}
+
+.dark-mode .brand {
+    color: white;
+    /* Changes the GameSHOP text color in dark mode */
 }
 
 .dark-mode .search-on-menu {
@@ -267,4 +272,84 @@
 
 .dark-mode .theme-toggle button:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* INTRO SECTION */
+.intro {
+    padding: 2rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.intro-content {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+#intro-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+.intro-text {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.intro-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-family: "Bebas Neue", serif;
+}
+
+.intro-text p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.shop-button {
+    display: block;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: "Bebas Neue", serif;
+}
+
+.shop-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.arrow {
+    display: inline-block;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.shop-button:hover .arrow {
+    transform: translateX(8px);
+}
+
+/* Dark mode styles */
+.dark-mode .shop-button {
+    background-color: #3a3f41;
+}
+
+.dark-mode .shop-button:hover {
+    background-color: #4a4f51;
 }
