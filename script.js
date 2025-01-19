@@ -177,4 +177,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add click event listener to theme toggle button
   themeToggleBtn.addEventListener("click", toggleTheme);
+
+  const searchContainer = document.querySelector(".search-on-menu");
+  const searchInput = document.querySelector(".search-box");
+  const searchIcon = document.querySelector(".search-icon");
+
+  // Function to expand search
+  function expandSearch() {
+    searchContainer.classList.add("expanded");
+    searchInput.classList.add("expanded");
+  }
+
+  // Function to collapse search
+  function collapseSearch() {
+    if (searchInput.value === "") {
+      searchContainer.classList.remove("expanded");
+      searchInput.classList.remove("expanded");
+    }
+  }
+
+  // Event listeners for search interaction
+  searchContainer.addEventListener("click", expandSearch);
+  searchInput.addEventListener("focus", expandSearch);
+  searchInput.addEventListener("blur", collapseSearch);
+
+  // Prevent search collapse when clicking inside
+  searchInput.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
 });

@@ -5,7 +5,15 @@
     background-color: #f8f9fa;
     display: flex;
     align-items: center;
+    padding: 10px 20px;
     justify-content: space-between;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Consistent spacing between elements */
 }
 
 .brand {
@@ -20,22 +28,28 @@
 .search-on-menu {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    box-sizing: border-box;
+    margin-left: auto;
+    /* Pushes it to the right */
+    margin-right: 20px;
     background-color: #f0f0f0;
     border-radius: 25px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
+    padding: 8px 15px;
+    width: 40px;
+    /* Starting width */
+    transition: width 0.3s ease;
+}
+
+.search-on-menu.expanded {
+    width: 300px;
+    /* Width when expanded */
 }
 
 .search-icon {
-    width: 100%;
-    height: 100%;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    /* Prevents icon from shrinking */
     object-fit: contain;
-    display: block;
 }
 
 .search-box {
@@ -45,6 +59,22 @@
     padding: 5px 10px;
     font-size: 16px;
     color: #333;
+    width: 0;
+    /* Start with 0 width */
+    transition: width 0.3s ease
+}
+
+.search-box.expanded {
+    width: 100%;
+    /* Take full width when expanded */
+}
+
+.dark-mode .search-on-menu {
+    background-color: #2a2e2f;
+}
+
+.dark-mode .search-box {
+    color: white;
 }
 
 .menu {
@@ -60,7 +90,7 @@
     padding: 0;
 }
 
-.menu ul button {
+.navbar-right ul button {
 
     font-family: "Bebas Neue", serif;
     font-weight: 400;
@@ -76,12 +106,12 @@
 
 }
 
-.menu ul button:hover {
+.navbar-right ul button:hover {
     background-color: #0056b3;
     /* Darker blue on hover */
 }
 
-.menu ul button a {
+.navbar-right ul button a {
     text-decoration: none;
     /* Removes underline */
     color: black;
