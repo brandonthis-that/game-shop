@@ -140,4 +140,41 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Buy button click event
+  detailsSelection.addEventListener("click", (e) => {
+    if (e.target.classList.contains("buy-button")) {
+      alert("Game purchased successfully!");
+    }
+  });
+
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+  const body = document.body;
+
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    body.className = savedTheme;
+    updateThemeIcon(savedTheme === "dark-mode");
+  } else {
+    // Default to light mode
+    body.className = "light-mode";
+    updateThemeIcon(false);
+  }
+
+  // Toggle theme function
+  function toggleTheme() {
+    const isDarkMode = body.classList.contains("dark-mode");
+    body.className = isDarkMode ? "light-mode" : "dark-mode";
+    localStorage.setItem("theme", isDarkMode ? "light-mode" : "dark-mode");
+    updateThemeIcon(!isDarkMode);
+  }
+
+  // Update button icon based on theme
+  function updateThemeIcon(isDarkMode) {
+    themeToggleBtn.textContent = isDarkMode ? "🌜" : "🌞";
+  }
+
+  // Add click event listener to theme toggle button
+  themeToggleBtn.addEventListener("click", toggleTheme);
 });

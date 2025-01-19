@@ -211,3 +211,60 @@
 .slider-nav a.hover {
     opacity: 1;
 }
+
+/* Dark mode styles */
+
+.dark-mode {
+    background-color: #181a1b;
+    color: white;
+}
+
+.light-mode {
+    background-color: #fff3e7;
+    color: black;
+}
+
+.dark-mode .navbar {
+    background-color: #242627;
+}
+
+.dark-mode .search-on-menu {
+    background-color: #2a2e2f;
+}
+
+.dark-mode .search-box {
+    color: white;
+}
+
+.dark-mode .menu ul button a {
+    color: white;
+}
+
+.dark-mode .details-section {
+    background-color: #242627;
+}
+
+/* Theme toggle button styles */
+.theme-toggle button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.theme-toggle button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .theme-toggle button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
