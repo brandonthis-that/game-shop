@@ -1,82 +1,186 @@
-const games = [
-  {
-    id: 1,
-    title: "Call of Duty: Warzone",
-    price: 59.99,
-    rating: 4.5,
-    category: "action",
-    image: "../public/assets/images/16.9/cod-warzone.png",
-  },
-  // Add more games here
-];
+// API endpoints
+const API_BASE_URL = "http://localhost:3000";
 
+// State management
+let currentUser = null;
+let games = [];
+let currentFilters = {
+  categories: [],
+  minPrice: 0,
+  maxPrice: 100,
+  rating: [],
+};
+
+// Authentication functions
+async function login(username, password) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(error);
+    }
+
+    currentUser = username;
+    localStorage.setItem("username", username);
+    updateAuthUI();
+    closeAuthModal();
+  } catch (error) {
+    showError(error.message);
+  }
+}
+
+async function register(username, email, password) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(error);
+    }
+
+    showSuccess("Registration successful! Please login.");
+    switchAuthTab("login");
+  } catch (error) {
+    showError(error.message);
+  }
+}
+
+// Game fetching and rendering
+async function fetchGames() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/games`);
+    if (!response.ok) throw new Error("Failed to fetch games");
+    games = await response.json();
+    renderGames(games);
+  } catch (error) {
+    showError("Error loading games. Please try again later.");
+  }
+}
+
+function renderGames(gamesToRender) {
+  const gamesGrid = document.querySelector(".games-grid");
+  gamesGrid.innerHTML = gamesToRender
+    .map(
+      (game) => `
+        <div class="game-card">
+            <img src="/public/assets/images/16.9/${game.title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")}.jpg" 
+                 alt="${game.title}"
+                 onerror="this.src='/public/assets/images/placeholder.jpg'">
+            <div class="game-info">
+                <h3 class="game-title">${game.title}</h3>
+                <p class="game-description">${game.description}</p>
+                <div class="game-price">$${game.price.toFixed(2)}</div>
+                <div class="game-rating">
+                    ${"★".repeat(Math.floor(game.rating))}${"☆".repeat(
+        5 - Math.floor(game.rating)
+      )}
+                    ${game.rating.toFixed(1)}
+                </div>
+                <div class="game-release-date">
+                    Released: ${new Date(
+                      game.release_date
+                    ).toLocaleDateString()}
+                </div>
+            </div>
+        </div>
+    `
+    )
+    .join("");
+}
+
+// UI functions
+function updateAuthUI() {
+  const accountIcon = document.querySelector(".account-icon-wrapper");
+  if (currentUser) {
+    accountIcon.innerHTML = `
+            <div class="user-menu">
+                <span>${currentUser}</span>
+                <button onclick="logout()">Logout</button>
+            </div>
+        `;
+  } else {
+    accountIcon.innerHTML = `
+            <img class="account-icon" src="../public/assets/account-icon.svg" 
+                 alt="account-icon-svg" onclick="openAuthModal()">
+        `;
+  }
+}
+
+function showError(message) {
+  const errorDiv = document.createElement("div");
+  errorDiv.className = "error-message";
+  errorDiv.textContent = message;
+  document.body.appendChild(errorDiv);
+  setTimeout(() => errorDiv.remove(), 3000);
+}
+
+function showSuccess(message) {
+  const successDiv = document.createElement("div");
+  successDiv.className = "success-message";
+  successDiv.textContent = message;
+  document.body.appendChild(successDiv);
+  setTimeout(() => successDiv.remove(), 3000);
+}
+
+// Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggleBtn = document.getElementById("theme-toggle-btn");
   const body = document.body;
-
-  const gamesGrid = document.querySelector(".games-grid");
   const sortSelect = document.querySelector(".sort-select");
   const filterInputs = document.querySelectorAll(".filter-option input");
-  const priceRange = document.getElementById("price-range");
   const minPrice = document.getElementById("min-price");
   const maxPrice = document.getElementById("max-price");
   const applyFiltersBtn = document.querySelector(".apply-filters");
 
-  let currentFilters = {
-    categories: [],
-    minPrice: 0,
-    maxPrice: 100,
-    rating: [],
-  };
-
-  function renderGames(gamesToRender) {
-    gamesGrid.innerHTML = gamesToRender
-      .map(
-        (game) => `
-            <div class="game-card">
-                <img src="${game.image}" alt="${game.title}">
-                <div class="game-info">
-                    <h3 class="game-title">${game.title}</h3>
-                    <div class="game-price">$${game.price.toFixed(2)}</div>
-                    <div class="game-rating">
-                        ${"★".repeat(Math.floor(game.rating))}${"☆".repeat(
-          5 - Math.floor(game.rating)
-        )}
-                        ${game.rating.toFixed(1)}
-                    </div>
-                </div>
-            </div>
-        `
-      )
-      .join("");
+  // Initialize
+  fetchGames();
+  const savedUsername = localStorage.getItem("username");
+  if (savedUsername) {
+    currentUser = savedUsername;
+    updateAuthUI();
   }
 
-  function filterGames() {
-    let filteredGames = games;
+  // Auth modal event listeners
+  document.querySelectorAll(".auth-tab").forEach((tab) => {
+    tab.addEventListener("click", () => switchAuthTab(tab.dataset.tab));
+  });
 
-    // Apply category filters
-    if (currentFilters.categories.length > 0) {
-      filteredGames = filteredGames.filter((game) =>
-        currentFilters.categories.includes(game.category)
+  document
+    .getElementById("login-form")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      await login(formData.get("username"), formData.get("password"));
+    });
+
+  document
+    .getElementById("register-form")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      await register(
+        formData.get("username"),
+        formData.get("email"),
+        formData.get("password")
       );
-    }
+    });
 
-    // Apply price filter
-    filteredGames = filteredGames.filter(
-      (game) =>
-        game.price >= currentFilters.minPrice &&
-        game.price <= currentFilters.maxPrice
-    );
-
-    // Apply rating filter
-    if (currentFilters.rating.length > 0) {
-      filteredGames = filteredGames.filter((game) =>
-        currentFilters.rating.some((rating) => game.rating >= rating)
-      );
-    }
-    return filteredGames;
-  }
-
+  // Sorting
   sortSelect.addEventListener("change", (e) => {
     let sortedGames = [...games];
     switch (e.target.value) {
@@ -90,13 +194,15 @@ document.addEventListener("DOMContentLoaded", () => {
         sortedGames.sort((a, b) => b.rating - a.rating);
         break;
       case "newest":
-        sortedGames.sort((a, b) => b.id - a.id); // Assuming id represents newest
+        sortedGames.sort(
+          (a, b) => new Date(b.release_date) - new Date(a.release_date)
+        );
         break;
     }
     renderGames(sortedGames);
   });
 
-  // Filter input event listeners
+  // Filtering
   filterInputs.forEach((input) => {
     input.addEventListener("change", (e) => {
       const value = e.target.value;
@@ -122,38 +228,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Price range event listeners
+  // Price range
   minPrice.addEventListener("input", (e) => {
     currentFilters.minPrice = Number(e.target.value);
-    priceRange.min = e.target.value;
   });
 
   maxPrice.addEventListener("input", (e) => {
     currentFilters.maxPrice = Number(e.target.value);
-    priceRange.max = e.target.value;
   });
 
-  // Apply filters button event listener
   applyFiltersBtn.addEventListener("click", () => {
     const filteredGames = filterGames();
     renderGames(filteredGames);
   });
 
-  // Initial render
-  renderGames(games);
-
-  // Check for saved theme preference
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    body.className = savedTheme;
-    updateThemeIcon(savedTheme === "dark-mode");
-  } else {
-    // Default to light mode
-    body.className = "light-mode";
-    updateThemeIcon(false);
-  }
-
-  // Toggle theme function
+  // Theme toggle
   function toggleTheme() {
     const isDarkMode = body.classList.contains("dark-mode");
     body.className = isDarkMode ? "light-mode" : "dark-mode";
@@ -161,58 +250,46 @@ document.addEventListener("DOMContentLoaded", () => {
     updateThemeIcon(!isDarkMode);
   }
 
-  // Update button icon based on theme
   function updateThemeIcon(isDarkMode) {
     themeToggleBtn.textContent = isDarkMode ? "🌜" : "🌞";
   }
 
-  // Add click event listener to theme toggle button
   themeToggleBtn.addEventListener("click", toggleTheme);
 
-  const searchContainer = document.querySelector(".search-on-menu");
+  // Search
   const searchInput = document.querySelector(".search-box");
-  const searchIcon = document.querySelector(".search-icon");
-
-  // Function to expand search
-  function expandSearch() {
-    searchContainer.classList.add("expanded");
-    searchInput.classList.add("expanded");
-  }
-
-  // Function to collapse search
-  function collapseSearch() {
-    if (searchInput.value === "") {
-      searchContainer.classList.remove("expanded");
-      searchInput.classList.remove("expanded");
-    }
-  }
-
-  // Event listeners for search interaction
-  searchContainer.addEventListener("click", expandSearch);
-  searchInput.addEventListener("focus", expandSearch);
-  searchInput.addEventListener("blur", collapseSearch);
-
-  // Prevent search collapse when clicking inside
-  searchInput.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-
-  // Navbar scroll functionality
-  const navbar = document.querySelector(".navbar");
-  let lastScroll = 0;
-
-  window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-
-    // Scrolling down
-    if (currentScroll > lastScroll && currentScroll > 50) {
-      navbar.style.transform = "translateY(-100%)";
-    }
-    // Scrolling up
-    else {
-      navbar.style.transform = "translateY(0)";
-    }
-
-    lastScroll = currentScroll;
+  searchInput.addEventListener("input", (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const filteredGames = games.filter(
+      (game) =>
+        game.title.toLowerCase().includes(searchTerm) ||
+        game.description.toLowerCase().includes(searchTerm)
+    );
+    renderGames(filteredGames);
   });
 });
+
+// Filter function
+function filterGames() {
+  let filteredGames = games;
+
+  if (currentFilters.categories.length > 0) {
+    filteredGames = filteredGames.filter((game) =>
+      currentFilters.categories.includes(game.category)
+    );
+  }
+
+  filteredGames = filteredGames.filter(
+    (game) =>
+      game.price >= currentFilters.minPrice &&
+      game.price <= currentFilters.maxPrice
+  );
+
+  if (currentFilters.rating.length > 0) {
+    filteredGames = filteredGames.filter((game) =>
+      currentFilters.rating.some((rating) => game.rating >= rating)
+    );
+  }
+
+  return filteredGames;
+}
