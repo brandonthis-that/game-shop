@@ -5,7 +5,7 @@ const games = [
     price: 59.99,
     rating: 4.5,
     category: "action",
-    image: "./assets/images/16.9/cod-warzone.png",
+    image: "../public/assets/images/16.9/cod-warzone.png",
   },
   // Add more games here
 ];
