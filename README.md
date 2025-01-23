@@ -18,6 +18,22 @@ GameShop is a simple, user-friendly web application for managing a collection of
 
 ## .
 
+## Usage
+
+1. Open the application in your browser.
+2. Use the "Add Game" form to input game details (e.g., title, genre, release date).
+3. Submit the form to add the game to the database.
+4. View the updated list of games displayed on the main page.
+
+## Project Structure
+
+```
+GameShop/
+├── index.html        # Main HTML file
+├── styles.css        # CSS file for styling
+├── script.js         # JavaScript file for functionality
+└── README.md         # Project documentation
+```
 
 ## Contributing
 
@@ -25,20 +41,17 @@ Contributions are welcome! To contribute:
 
 1. Fork this repository.
 2. Create a new branch for your feature or bug fix:
-   
-bash
+   ```bash
    git checkout -b feature-name
-
+   ```
 3. Commit your changes:
-   
-bash
+   ```bash
    git commit -m "Description of changes"
-
+   ```
 4. Push to your branch:
-   
-bash
+   ```bash
    git push origin feature-name
-
+   ```
 5. Open a pull request.
 
 ## License
@@ -52,3 +65,4 @@ Special thanks to all contributors and users who support this project.
 ---
 
 Feel free to customize this template to suit your project better!
+
