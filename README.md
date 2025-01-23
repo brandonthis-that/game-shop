@@ -1,4 +1,5 @@
 # GameShop Project
+![image](https://github.com/user-attachments/assets/68b7b89b-5bd3-4ed6-9090-97ad5e5224e0)
 
 ## Overview
 
@@ -49,10 +50,6 @@ Contributions are welcome! To contribute:
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Acknowledgments
-
-Special thanks to all contributors and users who support this project.
 
 ---
 
