@@ -15,25 +15,17 @@ GameShop is a simple, user-friendly web application for managing a collection of
 - **HTML**: For the structure of the web pages.
 - **CSS**: For styling and layout.
 - **JavaScript**: For dynamic functionality and database interaction.
+- **NodeJS**: For backend code.
 
 ## .
 
 ## Usage
 
 1. Open the application in your browser.
-2. Use the "Add Game" form to input game details (e.g., title, genre, release date).
-3. Submit the form to add the game to the database.
+2. View the shop to see list of added games and their description (e.g., title, genre, release date).
+3. Use server.js to add games to the database.
 4. View the updated list of games displayed on the main page.
 
-## Project Structure
-
-```
-GameShop/
-├── index.html        # Main HTML file
-├── styles.css        # CSS file for styling
-├── script.js         # JavaScript file for functionality
-└── README.md         # Project documentation
-```
 
 ## Contributing
 
